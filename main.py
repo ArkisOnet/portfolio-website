@@ -1,5 +1,4 @@
 import streamlit as st
-import google.generativeai as genai
 from datetime import datetime
 
 # Page configuration
@@ -165,59 +164,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-def init_gemini():
-    """Initialize Gemini API"""
-    api_key = st.secrets.get("GEMINI_API_KEY", "")
-    if api_key:
-        genai.configure(api_key=api_key)
-        return True
-    return False
-
-
-def get_ai_response(prompt: str, context: str) -> str:
-    """Get response from Gemini AI"""
-    try:
-        model = genai.GenerativeModel('gemini-1.5-flash')
-        full_prompt = f"""You are an AI assistant for Gafur Khussanbayev's portfolio website.
-        You help visitors learn about Gafur's skills, projects, and experience.
-
-        Context about Gafur:
-        {context}
-
-        User question: {prompt}
-
-        Provide a helpful, professional response. Keep it concise but informative."""
-
-        response = model.generate_content(full_prompt)
-        return response.text
-    except Exception as e:
-        return f"I apologize, but I'm unable to process your request at the moment. Error: {str(e)}"
-
-
-# Portfolio context for AI
-PORTFOLIO_CONTEXT = """
-Gafur Khussanbayev is a Big Data Analysis student at Astana IT University, Kazakhstan.
-He has professional experience as a Data & Test Analyst at 'Global Digital Innovations' where he worked with PostgreSQL, Kafka, and Kubernetes.
-He has built an LLM agent with a RAG (Retrieval-Augmented Generation) system.
-
-Key Projects:
-1. Fraud Detection Model - Built using CatBoost achieving 80% recall, deployed as a Telegram bot for real-time predictions.
-2. Retail Sales Forecasting - Developed using XGBoost, improved RMSE by 23% compared to baseline models.
-
-Technical Skills:
-- Programming: Python, SQL
-- Data Science: Pandas, NumPy, Scikit-learn, PyTorch, TensorFlow
-- ML/DL: CatBoost, XGBoost, LightGBM, Neural Networks
-- Big Data: Apache Kafka, Apache Spark
-- Databases: PostgreSQL, MongoDB
-- DevOps: Docker, Kubernetes, Git
-- Cloud: Google Cloud Platform
-- Visualization: Matplotlib, Seaborn, Plotly, Streamlit
-
-Location: Astana, Kazakhstan
-"""
-
-
 def render_sidebar():
     """Render sidebar navigation"""
     with st.sidebar:
@@ -236,7 +182,7 @@ def render_sidebar():
         # Navigation
         page = st.radio(
             "Navigation",
-            ["🏠 About Me", "💻 Technical Skills", "🚀 Projects", "🤖 AI Chat"],
+            ["🏠 About Me", "💻 Technical Skills", "🚀 Projects"],
             label_visibility="collapsed"
         )
 
@@ -511,79 +457,6 @@ def render_projects():
     st.markdown("".join([f"<span class='skill-badge'>{tech}</span>" for tech in llm_tech]), unsafe_allow_html=True)
 
 
-def render_chat():
-    """Render AI Chat section"""
-    st.markdown("""
-    <div class='astana-header'>
-        <h1>🤖 AI Assistant</h1>
-        <p style='color: #aaa;'>Ask me anything about Gafur's skills, projects, or experience!</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # Initialize Gemini
-    gemini_available = init_gemini()
-
-    if not gemini_available:
-        st.warning("""
-        ⚠️ **Gemini API key not configured.**
-
-        To enable the AI chat feature, add your Gemini API key to Streamlit secrets:
-
-        1. Create a file `.streamlit/secrets.toml`
-        2. Add: `GEMINI_API_KEY = "your-api-key-here"`
-
-        Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-        """)
-        return
-
-    # Initialize chat history
-    if "messages" not in st.session_state:
-        st.session_state.messages = [
-            {"role": "assistant", "content": "Hello! I'm the AI assistant for Gafur's portfolio. Feel free to ask me about his skills, projects, or experience! 🇰🇿"}
-        ]
-
-    # Display chat history
-    st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
-
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    # Chat input
-    if prompt := st.chat_input("Ask about my skills, projects, or experience..."):
-        # Add user message
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
-
-        # Get AI response
-        with st.chat_message("assistant"):
-            with st.spinner("Thinking..."):
-                response = get_ai_response(prompt, PORTFOLIO_CONTEXT)
-                st.markdown(response)
-                st.session_state.messages.append({"role": "assistant", "content": response})
-
-    # Sample questions
-    st.markdown("### 💡 Try asking:")
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.markdown("""
-        - What projects has Gafur worked on?
-        - What ML frameworks does he know?
-        - Tell me about his fraud detection project
-        """)
-
-    with col2:
-        st.markdown("""
-        - What is his experience with big data?
-        - What cloud platforms does he use?
-        - Describe his RAG system project
-        """)
-
-
 def main():
     """Main application"""
     page = render_sidebar()
@@ -594,14 +467,12 @@ def main():
         render_skills()
     elif "🚀 Projects" in page:
         render_projects()
-    elif "🤖 AI Chat" in page:
-        render_chat()
 
     # Footer
     st.markdown("""
     <div class='footer'>
         <p>Built with ❤️ in Astana, Kazakhstan | © 2025 Gafur Khussanbayev</p>
-        <p style='font-size: 0.8em;'>Powered by Streamlit & Google Gemini</p>
+        <p style='font-size: 0.8em;'>Powered by Streamlit</p>
     </div>
     """, unsafe_allow_html=True)
 
