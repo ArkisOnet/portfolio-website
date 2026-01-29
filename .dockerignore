@@ -1,0 +1,27 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# IDE
+.idea/
+.vscode/
+
+# Docs
+*.md
+LICENSE
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Secrets (will be passed via environment variables in Cloud Run)
+.streamlit/secrets.toml
+.streamlit/secrets.toml.example
