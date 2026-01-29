@@ -245,6 +245,7 @@ def render_sidebar():
         # Contact info
         st.markdown("### 📬 Contact")
         st.markdown("""
+        - 📧 [Email](mailto:ulbertt.odle@gmail.com)
         - 💼 [LinkedIn](https://www.linkedin.com/in/gafur-khussanbayev)
         - 🐙 [GitHub](https://github.com/ArkisOnet)
         """)
