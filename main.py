@@ -245,9 +245,8 @@ def render_sidebar():
         # Contact info
         st.markdown("### 📬 Contact")
         st.markdown("""
-        - 📧 [Email](mailto:your.email@example.com)
-        - 💼 [LinkedIn](https://linkedin.com/in/yourprofile)
-        - 🐙 [GitHub](https://github.com/yourprofile)
+        - 💼 [LinkedIn](https://www.linkedin.com/in/gafur-khussanbayev)
+        - 🐙 [GitHub](https://github.com/ArkisOnet)
         """)
 
         # Current time in Astana
