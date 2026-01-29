@@ -9,9 +9,29 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Load Phosphor Icons (outline style)
+st.markdown("""
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css"/>
+""", unsafe_allow_html=True)
+
 # Custom CSS for dark theme with Astana aesthetic
 st.markdown("""
 <style>
+    /* Icon styling */
+    .ph {
+        font-size: 1.2em;
+        margin-right: 8px;
+        color: #00d4ff;
+    }
+
+    .icon-gold {
+        color: #ffd700 !important;
+    }
+
+    .section-icon {
+        font-size: 1.5em;
+        margin-right: 10px;
+    }
     /* Main background and text */
     .stApp {
         background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f3460 100%);
@@ -172,7 +192,7 @@ def render_sidebar():
             <h2 style='margin-bottom: 5px;'>Gafur Khussanbayev</h2>
             <p style='color: #00d4ff;'>Data Analyst & ML Engineer</p>
             <div class='location-badge'>
-                📍 Astana, Kazakhstan
+                <i class='ph ph-map-pin'></i> Astana, Kazakhstan
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -182,23 +202,25 @@ def render_sidebar():
         # Navigation
         page = st.radio(
             "Navigation",
-            ["🏠 About Me", "💻 Technical Skills", "🚀 Projects"],
+            ["About Me", "Technical Skills", "Projects"],
             label_visibility="collapsed"
         )
 
         st.markdown("---")
 
         # Contact info
-        st.markdown("### 📬 Contact")
         st.markdown("""
-        - 📧 [Email](mailto:ulbertt.odle@gmail.com)
-        - 💼 [LinkedIn](https://www.linkedin.com/in/gafur-khussanbayev)
-        - 🐙 [GitHub](https://github.com/ArkisOnet)
-        """)
+        <h3><i class='ph ph-envelope-simple'></i> Contact</h3>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <p><i class='ph ph-at'></i> <a href='mailto:ulbertt.odle@gmail.com'>Email</a></p>
+        <p><i class='ph ph-linkedin-logo'></i> <a href='https://www.linkedin.com/in/gafur-khussanbayev'>LinkedIn</a></p>
+        <p><i class='ph ph-github-logo'></i> <a href='https://github.com/ArkisOnet'>GitHub</a></p>
+        """, unsafe_allow_html=True)
 
         # Current time in Astana
         st.markdown("---")
-        st.markdown(f"🕐 Astana Time: **{datetime.now().strftime('%H:%M')}**")
+        st.markdown(f"<p><i class='ph ph-clock'></i> Astana Time: <strong>{datetime.now().strftime('%H:%M')}</strong></p>", unsafe_allow_html=True)
 
         return page
 
@@ -207,16 +229,16 @@ def render_about():
     """Render About Me section"""
     st.markdown("""
     <div class='astana-header'>
-        <h1>👋 Hello, I'm Gafur Khussanbayev</h1>
+        <h1><i class='ph ph-hand-waving'></i> Hello, I'm Gafur Khussanbayev</h1>
         <p style='font-size: 1.3em; color: #aaa;'>Big Data Analysis Student | Data Analyst | ML Engineer</p>
-        <div class='location-badge'>📍 Astana, Kazakhstan</div>
+        <div class='location-badge'><i class='ph ph-map-pin'></i> Astana, Kazakhstan</div>
     </div>
     """, unsafe_allow_html=True)
 
     col1, col2 = st.columns([2, 1])
 
     with col1:
-        st.markdown("## 🎯 About Me")
+        st.markdown("<h2><i class='ph ph-user-circle section-icon'></i> About Me</h2>", unsafe_allow_html=True)
         st.markdown("""
         I am a passionate **Big Data Analysis** student at **Astana IT University**,
         dedicated to transforming complex data into actionable insights. My journey in
@@ -227,7 +249,7 @@ def render_about():
         with cutting-edge AI technologies.
         """)
 
-        st.markdown("## 💼 Professional Experience")
+        st.markdown("<h2><i class='ph ph-briefcase section-icon'></i> Professional Experience</h2>", unsafe_allow_html=True)
         st.markdown("""
         <div class='timeline-item'>
             <div class='timeline-dot'></div>
@@ -242,7 +264,7 @@ def render_about():
         </div>
         """, unsafe_allow_html=True)
 
-        st.markdown("## 🎓 Education")
+        st.markdown("<h2><i class='ph ph-graduation-cap section-icon'></i> Education</h2>", unsafe_allow_html=True)
         st.markdown("""
         <div class='timeline-item'>
             <div class='timeline-dot'></div>
@@ -253,7 +275,7 @@ def render_about():
         """, unsafe_allow_html=True)
 
     with col2:
-        st.markdown("## 📊 Quick Stats")
+        st.markdown("<h2><i class='ph ph-chart-bar section-icon'></i> Quick Stats</h2>", unsafe_allow_html=True)
 
         st.markdown("""
         <div class='metric-card'>
@@ -294,20 +316,20 @@ def render_skills():
     """Render Technical Skills section"""
     st.markdown("""
     <div class='astana-header'>
-        <h1>💻 Technical Skills</h1>
+        <h1><i class='ph ph-code section-icon'></i> Technical Skills</h1>
         <p style='color: #aaa;'>Technologies and tools I work with</p>
     </div>
     """, unsafe_allow_html=True)
 
     # Programming Languages
-    st.markdown("## 🐍 Programming Languages")
+    st.markdown("<h2><i class='ph ph-terminal section-icon'></i> Programming Languages</h2>", unsafe_allow_html=True)
     langs = ["Python", "SQL", "Bash"]
     st.markdown("".join([f"<span class='skill-badge'>{lang}</span>" for lang in langs]), unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Data Science & ML
-    st.markdown("## 📊 Data Science & Machine Learning")
+    st.markdown("<h2><i class='ph ph-brain section-icon'></i> Data Science & Machine Learning</h2>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
 
     with col1:
@@ -331,7 +353,7 @@ def render_skills():
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Big Data & Databases
-    st.markdown("## 🗄️ Big Data & Databases")
+    st.markdown("<h2><i class='ph ph-database section-icon'></i> Big Data & Databases</h2>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
 
     with col1:
@@ -347,7 +369,7 @@ def render_skills():
     st.markdown("<br>", unsafe_allow_html=True)
 
     # DevOps & Cloud
-    st.markdown("## ☁️ DevOps & Cloud")
+    st.markdown("<h2><i class='ph ph-cloud section-icon'></i> DevOps & Cloud</h2>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
 
     with col1:
@@ -363,7 +385,7 @@ def render_skills():
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Visualization
-    st.markdown("## 📈 Data Visualization")
+    st.markdown("<h2><i class='ph ph-chart-line-up section-icon'></i> Data Visualization</h2>", unsafe_allow_html=True)
     viz_tools = ["Matplotlib", "Seaborn", "Plotly", "Streamlit", "Tableau", "Power BI"]
     st.markdown("".join([f"<span class='skill-badge'>{tool}</span>" for tool in viz_tools]), unsafe_allow_html=True)
 
@@ -372,7 +394,7 @@ def render_projects():
     """Render Projects section"""
     st.markdown("""
     <div class='astana-header'>
-        <h1>🚀 Featured Projects</h1>
+        <h1><i class='ph ph-rocket-launch section-icon'></i> Featured Projects</h1>
         <p style='color: #aaa;'>Showcasing my data science and machine learning work</p>
     </div>
     """, unsafe_allow_html=True)
@@ -380,7 +402,7 @@ def render_projects():
     # Project 1: Fraud Detection
     st.markdown("""
     <div class='project-card'>
-        <h2>🔍 Fraud Detection Model</h2>
+        <h2><i class='ph ph-shield-check'></i> Fraud Detection Model</h2>
         <p style='color: #ffd700;'>Machine Learning | CatBoost | Telegram Bot</p>
         <hr style='border-color: #00d4ff33;'>
         <p>
@@ -407,7 +429,7 @@ def render_projects():
     # Project 2: Retail Sales Forecasting
     st.markdown("""
     <div class='project-card'>
-        <h2>📈 Retail Sales Forecasting</h2>
+        <h2><i class='ph ph-trend-up'></i> Retail Sales Forecasting</h2>
         <p style='color: #ffd700;'>Time Series | XGBoost | Business Analytics</p>
         <hr style='border-color: #00d4ff33;'>
         <p>
@@ -434,7 +456,7 @@ def render_projects():
     # Project 3: LLM Agent with RAG
     st.markdown("""
     <div class='project-card'>
-        <h2>🤖 LLM Agent with RAG System</h2>
+        <h2><i class='ph ph-robot'></i> LLM Agent with RAG System</h2>
         <p style='color: #ffd700;'>NLP | Large Language Models | Retrieval-Augmented Generation</p>
         <hr style='border-color: #00d4ff33;'>
         <p>
@@ -461,17 +483,17 @@ def main():
     """Main application"""
     page = render_sidebar()
 
-    if "🏠 About Me" in page:
+    if "About Me" in page:
         render_about()
-    elif "💻 Technical Skills" in page:
+    elif "Technical Skills" in page:
         render_skills()
-    elif "🚀 Projects" in page:
+    elif "Projects" in page:
         render_projects()
 
     # Footer
     st.markdown("""
     <div class='footer'>
-        <p>Built with ❤️ in Astana, Kazakhstan | © 2025 Gafur Khussanbayev</p>
+        <p>Built with <i class='ph ph-heart icon-gold'></i> in Astana, Kazakhstan | © 2025 Gafur Khussanbayev</p>
         <p style='font-size: 0.8em;'>Powered by Streamlit</p>
     </div>
     """, unsafe_allow_html=True)
